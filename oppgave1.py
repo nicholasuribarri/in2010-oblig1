@@ -1,4 +1,5 @@
-class Set:
+
+class Settt:
     root = Node(null)
     size = 0
 
