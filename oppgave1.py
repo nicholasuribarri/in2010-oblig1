@@ -14,6 +14,9 @@ class Settt:
     def insert(self, x):
         return root.insert(x)
     
+    def size():
+        return size
+    
 
     
     class Node:
