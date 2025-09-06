@@ -1,61 +1,52 @@
-
-class Settt:
-    root = Node(null)
-    size = 0
-
+class Set:
     def __init__(self):
-        self.root = root
-        self.size = size
+        self.root = Node(None)
+        self.size = 0
 
 
     def contains(self, x):
-        return root.contains(x)
+        return self.root.contains(x)
     
     def insert(self, x):
-        return root.insert(x)
-    
-
+        return self.root.insert(x)
     
     class Node:
-        value = null
-        left, right = null
-
         def __init__(self, x):
-            self.value = value
-            self.left = left
-            self.right = right
+            self.value = x
+            self.left = None
+            self.right = None
 
 
         def contains(self, x):
 
-            if value == null:
+            if self.value == None:
                 return False
             
-            if value == x:
+            if self.value == x:
                 return True
             
             if self.value > x:
-                return this.left.contains(x)
+                return self.left.contains(x)
             else:
-                return this.right.contains(x)
+                return self.right.contains(x)
             
         def insert(self, x):
-            if this.value == x:
+            if self.value == x:
                 return
             
-            if this.value == null:
-                this.value = x
+            if self.value == None:
+                self.value = x
                 return
             
-            if this.value > x:
-                if this.left == null:
-                    this.left = Node(x)
+            if self.value > x:
+                if self.left == None:
+                    self.left = self(x)
                 else:
-                    return this.left.insert(x)
+                    return self.left.insert(x)
                 
-            if this.value < x:
-                if this.right == null:
-                    this.right = Node(x)
+            if self.value < x:
+                if self.right == None:
+                    self.right = Node(x)
                 else:
-                    return this.right.insert(x)
+                    return self.right.insert(x)
         
