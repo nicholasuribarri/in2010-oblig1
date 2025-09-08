@@ -6,9 +6,13 @@ class Set:
 
     def contains(self, x):
         return self.root.contains(x)
+      
+    def size():
+        return size
     
     def insert(self, x):
         return self.root.insert(x)
+
     
     class Node:
         def __init__(self, x):
