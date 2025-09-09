@@ -1,63 +1,120 @@
-class Set:
-    root = Node(null)
-    size = 0
-
+class BST:
     def __init__(self):
-        self.root = root
-        self.size = size
+        self.root = None
+        self._size = 0
 
 
     def contains(self, x):
-        return root.contains(x)
+        if self.root:
+            return self.root.contains(x)
+        else:
+            return False
+      
+    def size(self):
+        return self._size
     
     def insert(self, x):
-        return root.insert(x)
+        #Hvis treet ikke er tomt, bruk insert fra Node- klassen, ellers bare lag en node i root
+        if self.root:
+            self.root.insert(x)
+        else:
+            self.root = BST.Node(x)
+        self._size += 1
+        
     
-    def size():
-        return size
-    
+    def remove(self, x):
+        if self.root and self.contains(x):
+            self.root = self.root.remove(x)
+            self._size -= 1
+        
 
     
     class Node:
-        value = null
-        left, right = null
-
-        def __init__(self, x):
+        def __init__(self, value):
             self.value = value
-            self.left = left
-            self.right = right
+            self.left = None
+            self.right = None
 
 
         def contains(self, x):
 
-            if value == null:
-                return False
-            
-            if value == x:
+            if self.value == x:
                 return True
             
             if self.value > x:
-                return this.left.contains(x)
+                if self.left:
+                    return self.left.contains(x)
+                else: 
+                    return False
             else:
-                return this.right.contains(x)
+                if self.right:
+                    return self.right.contains(x)
+                else:
+                    return False
+                
+            
             
         def insert(self, x):
-            if this.value == x:
+            if self.value == x:
                 return
             
-            if this.value == null:
-                this.value = x
-                return
-            
-            if this.value > x:
-                if this.left == null:
-                    this.left = Node(x)
+            if self.value > x:
+                if self.left is None:
+                    self.left = BST.Node(x)
                 else:
-                    return this.left.insert(x)
+                    return self.left.insert(x)
                 
-            if this.value < x:
-                if this.right == null:
-                    this.right = Node(x)
+            if self.value < x:
+                if self.right is None:
+                    self.right = BST.Node(x)
                 else:
-                    return this.right.insert(x)
-        
+                    return self.right.insert(x)
+                
+                
+        def remove(self, x):
+
+            #Søk gjennom treet til vi har en Node med riktig verdi
+
+            if x is None:
+                return None
+            
+            if x < self.value:
+                if self.left:
+                    self.left = self.left.remove(x)
+            elif x > self.value:
+                if self.right:
+                    self.right = self.right.remove(x)
+            else:
+            #Funnet riktig Node
+
+            #Case 1: Ingen barn
+                if not self.left and not self.right:
+                    return None
+
+            #Case 2: Ett barn
+                elif not self.left:
+                    return self.right
+                elif not self.right:
+                    return self.left
+            #Case 3: To barn
+                else:
+                    smallest_child_right = self.right.find_min()
+                    self.value = smallest_child_right.value
+                    self.right = self.right.remove(smallest_child_right.value)
+            
+            return self
+
+
+        def find_min(self):
+            if self.left:
+                return self.left.find_min()
+            else:
+                return self
+            
+
+
+
+            
+
+
+            
