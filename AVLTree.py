@@ -39,6 +39,9 @@ class AVLTree:
         y.right = node
         node.left = t1
 
+        if node is self.root:
+            self.root = y
+
         self.set_height(node)
         self.set_height(y)
 
@@ -52,13 +55,23 @@ class AVLTree:
         y.left = node
         node.right = t1
 
+        if node is self.root:
+            self.root = y
+
         self.set_height(node)
         self.set_height(y)
 
         return y
     
     def set_height(self, node):
-        node.height = max(node.left.get_height(), node.right.get_height()) + 1
+        if node.left and node.right:
+            node.height = max(self.get_height(node.left), self.get_height(node.right)) + 1
+        elif node.left:
+            node.height = self.get_height(node.left) + 1
+        elif node.right:
+            node.height = self.get_height(node.right) + 1
+        else:
+            node.height = 1
 
     
     def get_height(self, node):
@@ -88,22 +101,23 @@ class AVLTree:
     
     def insert(self, node, x):
         if not node:
-            node = AVLNode(x)
+            self._size += 1
+            return AVLNode(x)
         elif x < node.value:
             node.left = self.insert(node.left, x)
         elif x > node.value:
             node.right = self.insert(node.right, x)
-
-        self._size += 1
+        else: 
+            return node
 
         self.set_height(node)
         return self.balance(node)
     
-    def find_min(self):
-            if self.left:
-                return self.left.find_min()
-            else:
-                return self
+    def find_min(self, node):
+            pointer = node
+            while pointer.left:
+                pointer = pointer.left
+            return pointer
 
     
     def remove(self, node, x):
@@ -113,17 +127,21 @@ class AVLTree:
         if x < node.value:
             node.left = self.remove(node.left, x)
         elif x > node.value:
-            node.right = self.remove(node.left, x)
+            node.right = self.remove(node.right, x)
+
         elif not node.left:
-            node = node.right
+            self._size -= 1
+            return node.right
+
         elif not node.right:
-            node = node.left
+            self._size -= 1
+            return node.left
         else:
             u = self.find_min(node.right)
             node.value = u.value
             node.right = self.remove(node.right, u.value)
+            self._size -= 1
 
-        self._size -= 1
 
         self.set_height(node)
         return self.balance(node)
@@ -149,15 +167,15 @@ for i in range(int(input[0])+1):
     commands = input[i].split(" ")
     c = commands[0]
     try:
-        n = commands[1]
+        n = int(commands[1])
     except:
         print(tree.size())
     if c == "contains":
-        if tree.contains(n):
+        if tree.contains(tree.root,n):
             print("true")
         else:
             print("false")
     elif c == "insert":
-        tree.insert(n)
+        tree.root = tree.insert(tree.root, n)
     elif c == "remove":
-        tree.remove(n)
+        tree.root = tree.remove(tree.root, n)
