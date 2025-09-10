@@ -51,8 +51,7 @@ class BST:
             else:
                 if self.right:
                     return self.right.contains(x)
-                else:
-                    return False
+            return False
                 
             
             
