@@ -16,10 +16,12 @@ class BST:
     def insert(self, x):
         #Hvis treet ikke er tomt, bruk insert fra Node- klassen, ellers bare lag en node i root
         if self.root:
-            self.root.insert(x)
+            if not self.contains(x):
+                self.root.insert(x)
+                self._size += 1
         else:
             self.root = BST.Node(x)
-        self._size += 1
+            self._size += 1
         
     
     def remove(self, x):
@@ -114,7 +116,34 @@ class BST:
 
 
 
-            
 
+t = BST()
 
-            
+stdin = open("input_100000.txt", "r")
+stdout = open("output_100000.txt", "w")
+
+first_line = stdin.readline()
+
+for i in range(int(first_line)):
+    line = stdin.readline()
+
+    if line.startswith("insert"):
+        parts = line.split()
+        t.insert(parts[1])
+        #print("insert", parts[1])
+    elif line.startswith("size"):
+        parts = line.split()
+        stdout.write(str(t.size())+"\n")
+        #print("size", t.size())
+    elif line.startswith("contains"):
+        parts = line.split()
+        stdout.write(str(t.contains(parts[1]))+"\n")
+        #print("contains", parts[1], t.contains(parts[1]))
+    elif line.startswith("remove"):
+        parts = line.split()
+        t.remove(parts[1])
+        #print("remove", parts[1])
+ 
+stdin.close()
+stdout.close()
+    
