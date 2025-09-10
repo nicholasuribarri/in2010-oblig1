@@ -1,5 +1,4 @@
 import sys
-
 class AVL_Node:
     def __init__(v, x):
         v.left = None
@@ -13,76 +12,80 @@ class AVL:
         self.root = None
         self.h = -1
 
-    def insert(self, v, x):
-        if not v:
-            v = AVL_Node(x)
-            self.s += 1
-            print(x," Lagt til size: ", self.s)
-            if not self.root:
-                self.root = v
+    def insert(self, x):
+        if not self.contains(x):
+            self.root = self._insert(self.root, x)
+            self.s +=1
 
-        elif x < v.element:
-            v.left = self.insert(v.left, x)
+    def _insert(self, v, x):
+        # Oppretter node ved løvnode
+        if not v:
+            #self.s += 1
+            #print(x," Lagt til size: ", self.s, ", ekte size: ", self.count_nodes(self.root))
+            return AVL_Node(x)
+
+        # Traverserer
+        if x < v.element:
+            v.left = self._insert(v.left, x)
         elif x > v.element:
-            v.right = self.insert(v.right, x)
+            v.right = self._insert(v.right, x)
+        
 
         # set_height(v)
         # return balance(v)
+
+        # returnerer rot-node
         return v
-    
-    def find_min(v):
+
+    def find_min(self,v):
         if not v.left:
             return v
-        return AVL.find_min(v.left)
+        return self.find_min(v.left)
     
-    def remove(self,v, x):
-        if not v:
-            return None
-        
-        if x < v.element:
-            v.left = self.remove(v.left, x)
-        elif x > v.element:
-            v.right = self.remove(v.right, x)
-
-        # Oppdaterer size etter at vi har funnet riktig element
-        if v.element == x:
+    def remove(self, x):
+        if self.contains(x):
+            self.root = self._remove(self.root,x)
             self.s -= 1
-            print(x, " trekker fra size: ", self.s)
 
-        # Sjekker om vi skal slette rot-noden, i såfall oppdatere den
-        rot = None
-        if v == self.root:
-                rot = v
+    def _remove(self,v, x):
+        if not v:
+            return None 
+        
+        # traverserer nedover barna
+        if x < v.element:
+            v.left = self._remove(v.left, x)
+        elif x > v.element:
+            v.right = self._remove(v.right, x)
         
         #sjekker om har 1 eller 0 barn:
-        if not v.left:
+        elif not v.left:
             v = v.right
         elif not v.right:
             v = v.left
-        
         # har 2 barn
         else:
-            u = AVL.find_min(v.right)
+            u = self.find_min(v.right)
             v.element = u.element
-            v.right = self.remove(v.right, u.element)
+            v.right = self._remove(v.right, u.element)
 
-        # Evt oppdaterer rotnode:
-        if rot:
-            self.root = v
         # SetHeihght(v)
         #return balance(v)
+        # Returnerer ny rotnode
         return v
 
-    def contains(self,v,x):
+    def contains(self, x):
+        return self._contains(self.root, x)
+
+    def _contains(self,v,x):
         if not v:
-            return None
+            return False
         #print("sammenlikner ", v.element, "og",x)
         if v.element == x:
-            return v
+            return True
         if x < v.element:
-            return self.contains(v.left,x)
-        if x > v.element:
-            return self.contains(v.right,x)
+            return self._contains(v.left,x)
+        if x >= v.element:
+            return self._contains(v.right,x)
 
     def size(self):
         return self.s
@@ -121,13 +124,15 @@ for i in range(int(input[0])+1):
     except:
         print(tree.size())
     if c == "contains":
-        if tree.contains(root,n):
+        if tree.contains(n):
             print("true")
         else:
             print("false")
     elif c == "insert":
-        tree.insert(root,n)
+        tree.insert(n)
     elif c == "remove":
-        tree.remove(root,n)
-    root = tree.root
+        # if tree.root:
+        #     print("root element: ", tree.root.element)
+        tree.remove(n)
+    #root = tree.root
     #print("rot: ", root.element)
