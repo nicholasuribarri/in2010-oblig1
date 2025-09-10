@@ -3,7 +3,7 @@ class AVLNode:
         self.value = value
         self.left = None
         self.right = None
-        self.height = "?"
+        self.height = 1
 
 class AVLTree:
     def __init__(self):
@@ -15,6 +15,10 @@ class AVLTree:
     
     def left_rotate(self, node):
         return
+    
+    def set_height(self, node):
+        node.height = max(node.left.get_height(), node.right.get_height()) + 1
+
     
     def get_height(self, node):
             if node is None:

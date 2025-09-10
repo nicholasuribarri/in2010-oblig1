@@ -90,11 +90,11 @@ class BST:
             #Funnet riktig Node
 
             #Case 1: Ingen barn
-                if not self.left and not self.right:
-                    return None
+                #if not self.left and not self.right:
+                    # return None
 
             #Case 2: Ett barn
-                elif not self.left:
+                if not self.left:
                     return self.right
                 elif not self.right:
                     return self.left
