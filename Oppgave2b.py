@@ -19,9 +19,5 @@ def algoritme(array):
 #nput = [0,10,20,30,40,50,60,70,80,90,100, 110, 150, 167, 123451]
 #algoritme(input)
 
-read = sys.stdin.read().splitlines() # en liste med 1 element for hver linje
-input = []
-for i in read:
-    input.append(i)
-
+input = sys.stdin.read().splitlines() # en liste med 1 element for hver linje
 algoritme(input)
