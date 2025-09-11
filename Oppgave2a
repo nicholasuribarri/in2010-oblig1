@@ -1,0 +1,16 @@
+import sys
+def algoritme(inp):
+    low = 0 # første index
+    high = len(inp)-1 # siste index
+    rekursiv(inp, low, high)
+
+def rekursiv(array, low, high):
+    if low <= high:
+        i = round((low+high)/2)
+        print(array[i])
+        rekursiv(array, i+1, high)
+        rekursiv(array, low, i-1)
+    return 
+
+input = [0,1,2,3,4,5,6,7,8,9,10,11,16,20,400]
+algoritme(input)
