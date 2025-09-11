@@ -1,5 +1,5 @@
 import heapq
-
+import sys
 def algoritme(array):
     high = len(array)-1
     if 0 <= high:
@@ -16,6 +16,12 @@ def algoritme(array):
         algoritme(v)
     return 
 
-input = [0,10,20,30,40,50,60,70,80,90,100, 110, 150, 167, 123451]
+#nput = [0,10,20,30,40,50,60,70,80,90,100, 110, 150, 167, 123451]
+#algoritme(input)
+
+read = sys.stdin.read().splitlines() # en liste med 1 element for hver linje
+input = []
+for i in read:
+    input.append(i)
 
 algoritme(input)
