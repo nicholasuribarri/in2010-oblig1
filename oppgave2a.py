@@ -1,15 +1,4 @@
-def sorted_to_balanced(sorted_array):
-    middle = sorted_array[int(len(sorted_array)/2)]
 
-
-    for i in range(middle, len(sorted_array)):
-        print(sorted_array[i])
-
-    for i in range(middle):
-        print(sorted_array[i])
-    
-
-    
 liste = [0,1,2,3,4,5,6,7,8,9,10]
 #sorted_to_balanced(liste)
 
