@@ -15,7 +15,7 @@ def sorted(sorted_arr, start, end):
 
 
 #skriv: 
-#python3 oppgave2a.py < sortert_input*
+#python3 oppgave2a.py < sortert_input
 # sortert_input er en fil med sorterte heltall nedover
 
 read = sys.stdin.read().splitlines() # en liste med 1 element for hver linje
