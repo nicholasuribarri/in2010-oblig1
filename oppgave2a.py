@@ -2,7 +2,7 @@
 #liste = [0,1,2,3,4,5,6,7,8,9,10]
 #sorted_to_balanced(liste)
 
-
+import sys
 def sorted(sorted_arr, start, end):
     if start > end:
         return
@@ -17,12 +17,7 @@ def sorted(sorted_arr, start, end):
 #skriv: 
 #python3 oppgave2a.py < sortert_input
 # sortert_input er en fil med sorterte heltall nedover
-
-read = sys.stdin.read().splitlines() # en liste med 1 element for hver linje
-input = []
-for i in read:
-    input.append(i)
-
+input = sys.stdin.read().splitlines() # en liste med 1 element for hver linje
 
 #sorted(liste, 0, len(liste)-1)
 sorted(input, 0, len(input)-1)
